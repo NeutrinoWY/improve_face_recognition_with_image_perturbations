@@ -1,0 +1,58 @@
+---
+config:
+  name: perturbation
+
+basic:
+  # path of aligned LFW images
+  images_path: "/local/scratch/wangy/lfw"
+  # organized image file path where images are in one folder 
+  #(for simpleGA, as simpleGA was proposed later, the structures of files are not good for the coding, so I organize the images to simplify the code)
+  organized_images_path: "/local/scratch/wangy/organized_lfw"
+  # path of the training dataset
+  train_pairs_path: "/local/scratch/wangy/labels/pairsDevTrain.csv"
+  # path of the test dataset
+  test_pairs_path: "/local/scratch/wangy/labels/pairsDevTest.csv"
+  # path to save perturbed features
+  features_path: "/local/scratch/wangy/features"    #features parent dir
+
+
+# the paths that store models and static states
+load_model:
+  # AFFFE model
+  AFFFE_model_path: "/home/user/wangy/AFFACT+AFFFE/perturbation_1/model/AFFFE_model.py"
+  AFFFE_state_path: "/home/user/wangy/AFFACT+AFFFE/perturbation_1/model/AFFFE.pth"
+  # trained model
+  checkpoint: "/home/user/wangy/AFFACT+AFFFE/perturbation_1/model/best_checkpoint.pth"
+
+# choose the extractor for geting features: AFFFE or MyExtractor
+extractor_name: AFFFE  #"MyExtractor"   
+
+experiment:
+  experiments:
+    n_perturbations: 162
+  greedy_combination:
+    n_perturbations: 162
+
+simpleGA:
+  # number of iterations
+  max_iterations: 30
+  # whether to randomly select parents
+  random_selection: 0
+  # instead of randomly selecte parents, top n elites are selected
+  elite_selection: 30
+  # the method to get the fitness_score (simple or greedy_search)
+  fitness_score: greedy_search
+
+result:
+  # path to save the perturbations
+  perturbations_save_path: "/home/user/wangy/AFFACT+AFFFE/perturbations.csv"
+  # path to save the results of all single perturbations
+  results_save_path: "/home/user/wangy/AFFACT+AFFFE/results.csv"
+  # path to save the merged results (perturbations + results)
+  merged_results_path: "/home/user/wangy/AFFACT+AFFFE/merged_results.csv"
+  # path to save the greedy search results
+  greedy_save_path: "/home/user/wangy/AFFACT+AFFFE/greedy_combination_results.csv"
+  # path to save the simpleGA results
+  simpleGA_save_path: "/home/user/wangy/AFFACT+AFFFE/simpleGA_results.csv"
+
+
