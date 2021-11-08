@@ -1,0 +1,72 @@
+---
+config:
+  name: perturbation
+
+basic:
+  # whether to use bounding box or landmarks
+  bounding_box_mode: 0
+  # path of aligned LFW images
+  images_path: "/local/scratch/wangy/lfw"
+  # organized image file path where images are in one folder 
+  #(for simpleGA, as simpleGA was proposed later, the structures of files are not good for the coding, so I organize the images to simplify the code)
+  organized_images_path: "/local/scratch/wangy/organized_lfw"
+  # path of the training dataset
+  train_pairs_path: "/local/scratch/wangy/labels/pairsDevTrain.csv"
+  # path of the test dataset
+  test_pairs_path: "/local/scratch/wangy/labels/pairsDevTest.csv"
+  # view 2, pairs for 10 fold cross validation
+  pairs_path: "/local/scratch/wangy/labels/pairs.csv"
+  # path to save perturbed features
+  features_path: "/local/scratch/wangy/features_resnet51_norm"    #features parent dir
+
+
+# the paths that store models and static states
+load_model:
+  # AFFFE model
+  AFFFE_model_path: "/home/user/wangy/AFFACT+AFFFE/perturbation/model/AFFFE_model.py"
+  AFFFE_state_path: "/home/user/wangy/AFFACT+AFFFE/perturbation/model/AFFFE.pth"
+  # my model
+  checkpoint: /local/scratch/wangy/model_results/Checkpoint_ver_2021-08-04_10-59-12/best_checkpoint.pth
+    #/local/scratch/wangy/model_results/Checkpoint_ver_2021-07-25_21-08-46/best_checkpoint.pth #resnet51
+    #"/local/scratch/wangy/model_results/Checkpoint_ver_2021-08-04_10-59-12/best_checkpoint.pth"  #resnet51_align
+
+# choose the extractor for geting features: AFFFE or MyExtractor
+extractor_name: MyExtractor  
+
+experiment:
+  experiments:
+    n_perturbations: 135
+  greedy_combination:
+    n_perturbations: 135
+
+simpleGA:
+  # number of iterations
+  max_iterations: 15
+  # instead of randomly selecte parents, top n elites are selected
+  elite_selection: 3
+  # weight initialization method, "equal" ,"unequal" or "Gaussian"
+  weight_initialization: 
+    method: equal
+    # when weight_initializtion method is Gaussian, set the distribution mean
+    Gaussian_mean: 3
+  # the method to get the fitness_score (simple or greedy_search)
+  fitness_score: simple
+  # the method of the new generation to replace the previous generation (cover or merge)
+  generation_replacement: 
+    method: merge
+    # when the method is merge, set the percentage of top individuals to add to the next generation
+    percentage: 0.5
+
+result:
+  # path to save the perturbations
+  perturbations_save_path: "/home/user/wangy/AFFACT+AFFFE/perturbations_resnet51_align_norm_ldmk.csv"
+  # path to save the results of all single perturbations
+  results_save_path: "/home/user/wangy/AFFACT+AFFFE/results_resnet51_align_norm_ldmk.csv"
+  # path to save the merged results (perturbations + results)
+  merged_results_path: "/home/user/wangy/AFFACT+AFFFE/merged_results_resnet51_align_norm_ldmk.csv"
+  # path to save the greedy search results
+  greedy_save_path: "/home/user/wangy/AFFACT+AFFFE/greedy_combination_results_resnet51_align_norm_ldmk.csv"
+  # path to save the simpleGA results
+  simpleGA_save_path: "/home/user/wangy/AFFACT+AFFFE/perturbation/simpleGA_results_resnet51_align_norm_ldmk.csv"
+
+
