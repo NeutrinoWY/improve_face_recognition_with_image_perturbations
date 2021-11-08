@@ -12,6 +12,8 @@ conda install -c https://www.idiap.ch/software/bob/conda bob.ip.base
 
 conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 
+This code was run on Linux machine with CUDA GPU
+
 _____________________________________________________________________
 Using AFFACT data augmentation technique to train deep face recognition model
 _____________________________________________________________________
