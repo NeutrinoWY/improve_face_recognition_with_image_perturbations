@@ -4,8 +4,6 @@ Python version and libraries:
 
 conda create -n FR python=3.8 
 
-conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
-
 conda activate FR 
 
 conda install -c https://www.idiap.ch/software/bob/conda bob.io.image 
